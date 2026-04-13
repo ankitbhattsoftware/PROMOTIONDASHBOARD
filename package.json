@@ -1,0 +1,19 @@
+{
+  "name": "promotiondashboard",
+  "version": "1.0.0",
+  "description": "Webhook service for admin-specific vendor events",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "morgan": "^1.10.1"
+  }
+}
