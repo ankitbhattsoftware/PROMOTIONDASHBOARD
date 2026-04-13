@@ -2,6 +2,14 @@ const express = require("express");
 
 const router = express.Router();
 
+router.get("/:adminId", (req, res) => {
+  try {
+    return res.send(req.query["challange"]);
+  } catch (error) {
+    return res.send(error.message);
+  }
+});
+
 router.post("/:adminId", (req, res) => {
   const { adminId } = req.params;
   const { vendorId, eventType, data } = req.body || {};
@@ -55,4 +63,4 @@ router.post("/:adminId", (req, res) => {
   });
 });
 
-module.exports = router;
+module.exports = router; 
