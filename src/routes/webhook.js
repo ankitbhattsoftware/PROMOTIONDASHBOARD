@@ -12,7 +12,7 @@ router.get("/:adminId", (req, res) => {
 
 router.post("/:adminId", (req, res) => {
   const { adminId } = req.params;
-  const { vendorId, eventType, data } = req.body || {};
+  const payload = req.body || {};
 
   if (!adminId || typeof adminId !== "string") {
     return res.status(400).json({
@@ -21,24 +21,10 @@ router.post("/:adminId", (req, res) => {
     });
   }
 
-  if (!vendorId || typeof vendorId !== "string") {
+  if (typeof payload !== "object" || payload === null || Array.isArray(payload)) {
     return res.status(400).json({
       ok: false,
-      message: "vendorId is required and must be a string",
-    });
-  }
-
-  if (!eventType || typeof eventType !== "string") {
-    return res.status(400).json({
-      ok: false,
-      message: "eventType is required and must be a string",
-    });
-  }
-
-  if (typeof data !== "object" || data === null || Array.isArray(data)) {
-    return res.status(400).json({
-      ok: false,
-      message: "data is required and must be an object",
+      message: "Request body must be a JSON object",
     });
   }
 
@@ -48,10 +34,8 @@ router.post("/:adminId", (req, res) => {
     JSON.stringify({
       type: "webhook_received",
       adminId,
-      vendorId,
-      eventType,
       receivedAt,
-      data,
+      payload,
     })
   );
 
@@ -60,6 +44,7 @@ router.post("/:adminId", (req, res) => {
     message: "Webhook received",
     adminId,
     receivedAt,
+    payload,
   });
 });
 
